@@ -1,53 +1,84 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/Shared/Bloc/cubit.dart';
+import 'package:weather_app/Shared/Bloc/states.dart';
+import '../network/remote/weather_service.dart';
 
-class CurrentWeather extends StatelessWidget {
+class CurrentWeatherPage extends StatefulWidget {
+  @override
+  _CurrentWeatherPageState createState() => _CurrentWeatherPageState();
+}
+
+class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
+  final WeatherService _weatherService = WeatherService();
+  // String _city = 'Cairo';
+  // String _weatherInfo = '';
+
+  // void _fetchWeather() async {
+  //   try {
+  //     final weatherData = await _weatherService.getWeather(_city);
+  //     setState(() {
+  //       _weatherInfo = 'Temperature: ${weatherData['main']['temp']}°\n'
+  //           'Feel like ${weatherData['main']['feels_like']}°\n'
+  //           'Condition: ${weatherData['weather'][0]['description']}';
+  //     });
+  //   } catch (e) {
+  //     setState(() {
+  //       _weatherInfo = 'Error fetching weather data';
+  //     });
+  //   }
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _fetchWeather();
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Dio Example')),
-        body: Center(
-          child: DataFetcher(),
-        ),
-      ),
+    return BlocProvider(
+      create: (BuildContext context) => WeatherCupit()..fetchWeather(),
+      child: BlocConsumer<WeatherCupit, WeatherState>(
+          listener: (BuildContext context, WeatherState states) {},
+          builder: (BuildContext context, WeatherState states) {
+            return Scaffold(
+              appBar: AppBar(title: const Text('Weather App')),
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          elevation: 5, // Elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 30),
+                        ),
+                        child: const Text(
+                          'Get Weather at Cairo',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      WeatherCupit.get(context).weatherInfo,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
     );
-  }
-}
-
-class DataFetcher extends StatefulWidget {
-  @override
-  _DataFetcherState createState() => _DataFetcherState();
-}
-
-class _DataFetcherState extends State<DataFetcher> {
-  String data = "Fetching data...";
-  Dio dio = Dio();
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-    try {
-      Response response = await dio.get('https://api.weatherstack.com/current?access_key=36b483a50a243ad2fffd122eab6d0050&query=New%20York');
-      setState(() {
-        data = response.data['request'].toString();
-      });
-      log('hereeee ${response.data.toString()}');
-    } catch (e) {
-      setState(() {
-        data = "Error: $e";
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(data);
   }
 }
