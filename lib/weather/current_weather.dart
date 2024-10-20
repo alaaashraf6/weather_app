@@ -27,7 +27,7 @@ class CurrentWeatherPage extends StatelessWidget {
                     TextField(
                       controller: cityController,
                       decoration:
-                          const InputDecoration(labelText: 'Enter city'),
+                          const InputDecoration(labelText: 'Enter city to get weather'),
                     ),
                     const SizedBox(height: 16),
                     Center(
@@ -44,7 +44,7 @@ class CurrentWeatherPage extends StatelessWidget {
                               vertical: 15, horizontal: 30),
                         ),
                         child:  Text(
-                          'Get Weather at ${WeatherCubit.get(context).city}',
+                          'Get Weather  ${WeatherCubit.get(context).city}',
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
