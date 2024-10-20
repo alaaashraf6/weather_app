@@ -4,42 +4,16 @@ import 'package:weather_app/Shared/Bloc/cubit.dart';
 import 'package:weather_app/Shared/Bloc/states.dart';
 import '../network/remote/weather_service.dart';
 
-class CurrentWeatherPage extends StatefulWidget {
-  @override
-  _CurrentWeatherPageState createState() => _CurrentWeatherPageState();
-}
+class CurrentWeatherPage extends StatelessWidget {
+  // final WeatherService _weatherService = WeatherService();
+  final TextEditingController cityController = TextEditingController();
 
-class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
-  final WeatherService _weatherService = WeatherService();
   // String _city = 'Cairo';
-  // String _weatherInfo = '';
-
-  // void _fetchWeather() async {
-  //   try {
-  //     final weatherData = await _weatherService.getWeather(_city);
-  //     setState(() {
-  //       _weatherInfo = 'Temperature: ${weatherData['main']['temp']}°\n'
-  //           'Feel like ${weatherData['main']['feels_like']}°\n'
-  //           'Condition: ${weatherData['weather'][0]['description']}';
-  //     });
-  //   } catch (e) {
-  //     setState(() {
-  //       _weatherInfo = 'Error fetching weather data';
-  //     });
-  //   }
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _fetchWeather();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => WeatherCupit()..fetchWeather(),
-      child: BlocConsumer<WeatherCupit, WeatherState>(
+      create: (BuildContext context) => WeatherCubit(),
+      child: BlocConsumer<WeatherCubit, WeatherState>(
           listener: (BuildContext context, WeatherState states) {},
           builder: (BuildContext context, WeatherState states) {
             return Scaffold(
@@ -50,9 +24,16 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    TextField(
+                      controller: cityController,
+                      decoration:
+                          const InputDecoration(labelText: 'Enter city'),
+                    ),
+                    const SizedBox(height: 16),
                     Center(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        // onPressed: () {WeatherCubit.get(context).changeCity(cityController.text);},
+                        onPressed: () {WeatherCubit.get(context).changeCity(cityController.text); WeatherCubit.get(context).fetchWeather();},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           elevation: 5, // Elevation
@@ -62,15 +43,15 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30),
                         ),
-                        child: const Text(
-                          'Get Weather at Cairo',
-                          style: TextStyle(color: Colors.white),
+                        child:  Text(
+                          'Get Weather at ${WeatherCubit.get(context).city}',
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      WeatherCupit.get(context).weatherInfo,
+                      WeatherCubit.get(context).weatherInfo,
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 18),
                     ),
