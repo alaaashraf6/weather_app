@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/weather/current_weather.dart';
+import 'package:weather_app/weather/weather_of_week.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +18,8 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  CurrentWeatherPage(),
-    );
+      // home:  CurrentWeatherPage(),    );
+      home:  WeatherOfWeek(),    );
   }
 }
 

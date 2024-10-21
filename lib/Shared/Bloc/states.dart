@@ -1,3 +1,5 @@
+import 'package:weather_app/models/weather_model.dart';
+
 abstract class WeatherState {}
 
 
@@ -16,4 +18,9 @@ class WeatherErrorState extends WeatherState {
   final String error;
 
   WeatherErrorState(this.error);
+}
+class WeatherOfWeekSuccessState extends WeatherState {
+  final Weather weatherData;
+
+  WeatherOfWeekSuccessState(this.weatherData);
 }

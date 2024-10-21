@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/Shared/Bloc/states.dart';
+import 'package:weather_app/models/weather_model.dart';
 import '../../network/remote/weather_service.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
@@ -11,6 +12,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   final WeatherService _weatherService = WeatherService();
   String city = '';
   String weatherInfo = '';
+  List<Weather> weatherOfWeekInfo =[];
 
 //  <----------------fetchWeather ------------>
   void fetchWeather() async {
@@ -25,6 +27,19 @@ class WeatherCubit extends Cubit<WeatherState> {
     } catch (e) {
       weatherInfo = 'Error fetching weather data';
       emit(WeatherErrorState(weatherInfo)); 
+    }
+  }
+//  <----------------fetchWeeklyWeather ------------>
+
+   Future<void> fetchWeeklyWeather(String city) async {
+    try {
+      emit(WeatherLoadingState());
+      final weather = await _weatherService.fetchWeeklyWeather(city);
+      log(weather.toString());
+      log('weather.toString()');
+      // emit(WeatherSuccessState(weather));
+    } catch (e) {
+      emit(WeatherErrorState('Failed to fetch weather data'));
     }
   }
 
