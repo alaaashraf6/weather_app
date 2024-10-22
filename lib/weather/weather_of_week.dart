@@ -10,7 +10,7 @@ class WeatherOfWeek extends StatelessWidget {
   // final WeatherService _weatherService = WeatherService();
   final TextEditingController cityController = TextEditingController();
 
-  // String _city = 'Cairo';
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,19 +25,15 @@ class WeatherOfWeek extends StatelessWidget {
                 children: [
                    CarouselSlider(
                 options: CarouselOptions(
-                  height: 310,
+                  height: 250 ,
                   enlargeCenterPage: true,
                   disableCenter: true,
                   autoPlay: true,
                   viewportFraction: 0.6,
                   initialPage: 0,
                 ),
-                // items: WeatherCubit.get(context).weatherOfWeekInfo
-                //     .map((item) => WeatherCard()
-                //     .toList()),
-                items: [const Text("alaa")],
+                items: WeatherCubit.get(context).weatherOfWeekInfoList.map((item) =>  WeatherCard(weatherInfo: item,)).toList()
               ),
-              WeatherCard(WeatherCubit.get().weatherOfWeekInfo)
                 ],
               )
             );
