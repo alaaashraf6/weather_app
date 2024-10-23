@@ -22,8 +22,8 @@ final String baseUrl = 'https://api.openweathermap.org/data/2.5/forecast';
   Future<List<Weather>> fetchWeeklyWeather(String city) async {
     try {
       final response = await _dio.get('$baseUrl?q=$city&appid=$apiKey&units=metric');
-      List<Weather> weatherList = (response.data['list'] as List)
-          .map((item) => Weather.fromJson(item))
+      List<Weather> weatherList = (response.data['list'])
+          .map((item) => print(item['main']['temp']))
           .toList();
       return weatherList;
     } catch (e) {

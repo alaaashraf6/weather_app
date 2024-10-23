@@ -48,13 +48,10 @@ class WeatherCubit extends Cubit<WeatherState> {
   try {
     emit(WeatherLoadingState());
 
-    // Ensure city is not null or empty
-    if (city.isEmpty) {
-      emit(WeatherErrorState('City name cannot be empty.'));
-      return;
-    }
 
     final weatherList = await _weatherService.fetchWeeklyWeather(city);
+
+    print('weatherList');
     
     // Update the list with the fetched data
     weatherOfWeekInfoList = weatherList;

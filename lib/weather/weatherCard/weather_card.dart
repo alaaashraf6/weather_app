@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_model.dart';
 
 class WeatherCard extends StatelessWidget {
- WeatherCard({super.key, Weather? weatherInfo})
-      : weatherInfo = weatherInfo ?? Weather(date: '' ,description: '' ,temperature: 0.0  ); 
+ const WeatherCard({super.key, required this.weatherInfo, }); 
       
         final Weather weatherInfo;
 
@@ -27,7 +26,7 @@ class WeatherCard extends StatelessWidget {
           children: [
             // You can customize the display of weatherInfo here
               Text(
-                weatherInfo.temperature.toString(),
+                weatherInfo.toString(),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
