@@ -13,10 +13,7 @@ class WeatherCard extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-            Container(
-                    height: 20,
-                    color: Colors.amber,
-                  ),
+           
           Stack(
             children: [
           Container(
@@ -39,7 +36,10 @@ class WeatherCard extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   
+                    Container(
+                    height: 20,
+                    color: Colors.amber,
+                  ),
                     Image.asset('images/sky.png' ,height: 150, width: 150,),
                     Text(
                       weatherInfo['temp'].toString(),
