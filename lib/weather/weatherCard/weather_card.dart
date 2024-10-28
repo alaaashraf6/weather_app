@@ -15,6 +15,7 @@ class WeatherCard extends StatelessWidget {
         children: [
            
           Stack(
+            alignment: Alignment.topCenter,
             children: [
           Container(
             width: 200,
@@ -36,9 +37,8 @@ class WeatherCard extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    const SizedBox(
                     height: 20,
-                    color: Colors.amber,
                   ),
                     Image.asset('images/sky.png' ,height: 150, width: 150,),
                     Text(
