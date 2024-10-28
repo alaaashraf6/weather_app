@@ -20,7 +20,7 @@ class WeatherErrorState extends WeatherState {
   WeatherErrorState(this.error);
 }
 class WeatherOfWeekSuccessState extends WeatherState {
-  final List<Weather> weatherData;
+  final List<dynamic> weatherData;
 
   WeatherOfWeekSuccessState(this.weatherData);
 }

@@ -52,7 +52,7 @@ class Coord {
 class ListElement {
     int dt;
     MainClass main;
-    List<Weather> weather;
+    List<WeatherObj> weather;
     Clouds clouds;
     Wind wind;
     int visibility;
@@ -122,13 +122,13 @@ enum Pod {
     N
 }
 
-class Weather {
+class WeatherObj {
     int id;
     MainEnum main;
     Description description;
     Icon icon;
 
-    Weather({
+    WeatherObj({
         required this.id,
         required this.main,
         required this.description,

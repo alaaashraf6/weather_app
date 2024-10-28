@@ -12,7 +12,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   final WeatherService _weatherService = WeatherService();
   String city = 'Cairo';
   String weatherInfo = '';
-  List<Weather> weatherOfWeekInfoList =[];
+  List<dynamic> weatherOfWeekInfoList =[];
 
 //  <----------------fetchWeather ------------>
   void fetchWeather() async {
@@ -51,7 +51,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
     final weatherList = await _weatherService.fetchWeeklyWeather(city);
 
-    print('weatherList');
+    print('weatherList $weatherList');
     
     // Update the list with the fetched data
     weatherOfWeekInfoList = weatherList;
@@ -61,6 +61,8 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   } catch (e) {
     // Handle specific exceptions if needed
+    print('FailedLOloy ${e.toString()}');
+
     emit(WeatherErrorState('Failed to fetch weather data: ${e.toString()}'));
   }
 }
