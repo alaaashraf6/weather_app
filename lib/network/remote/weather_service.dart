@@ -6,7 +6,7 @@ class WeatherService {
   final Dio _dio = Dio();
   final String city = '';
   final String baseUrl = 'https://api.openweathermap.org/data/2.5/forecast';
-  final Map<dynamic, dynamic> weatherData = {'temp': 0.0, 'description': ''};
+  final Map<dynamic, dynamic> weatherData = {'temp': 0.0, 'description': ''  , 'date' :''};
 
   Future<Map<String, dynamic>> getWeather(String city) async {
     final String url =
@@ -42,16 +42,18 @@ class WeatherService {
         return {
           'temp': item['main']['temp'],
           'description': item['weather'][0]['description'], 
-          // 'date': item['dt_txt'], 
+          'date': item['dt_txt'], 
+          'windSpeed': item['wind']['speed'], 
+          'visibility': item['visibility'], 
+          'pressure': item['main']['pressure'], 
+          'humidity': item['main']['humidity'], 
+
         };
       }).toList();
-      print('afterafter');
 
-      print('alaaWather$weatherData');
       return weatherList;
     } catch (e) {
 
-      print('Failed to load weather data: $e');
       throw Exception('Failed to load weather data: $e');
     }
   }

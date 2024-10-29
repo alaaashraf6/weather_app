@@ -1,8 +1,6 @@
-import 'dart:developer';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/Shared/Bloc/states.dart';
-import 'package:weather_app/models/weather_model.dart';
 import '../../network/remote/weather_service.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
