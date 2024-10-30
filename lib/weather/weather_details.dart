@@ -49,7 +49,7 @@ class WeatherDetails extends StatelessWidget {
                     child:  Row(
                       children: [
                         IconButton(
-                          onPressed: () => goBack(context), // Pass the context to the function
+                          onPressed: () => goBack(context), 
                           icon: const Icon(Icons.arrow_back_ios),
                           color: Colors.white,
                         ),
