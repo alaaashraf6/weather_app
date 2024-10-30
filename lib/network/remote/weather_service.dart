@@ -43,6 +43,7 @@ class WeatherService {
           'temp': item['main']['temp'],
           'description': item['weather'][0]['description'], 
           'date': item['dt_txt'], 
+          'dateTime': item['dt'], 
           'windSpeed': item['wind']['speed'], 
           'visibility': item['visibility'], 
           'pressure': item['main']['pressure'], 

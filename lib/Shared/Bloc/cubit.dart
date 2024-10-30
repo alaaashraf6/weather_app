@@ -29,18 +29,6 @@ class WeatherCubit extends Cubit<WeatherState> {
   }
 //  <----------------fetchWeeklyWeather ------------>
 
-  //  Future<void> fetchWeeklyWeather() async {
-  //   try {
-  //     emit(WeatherLoadingState());
-  //     final weatherList = await _weatherService.fetchWeeklyWeather(city);
-  //     weatherOfWeekInfoList =weatherList;
-  //     emit(WeatherOfWeekSuccessState(weatherList));
-      
-
-  //   } catch (e) {
-  //     emit(WeatherErrorState('Failed to fetch weather data'));
-  //   }
-  // }
 
   Future<void> fetchWeeklyWeather(String city) async {
   try {

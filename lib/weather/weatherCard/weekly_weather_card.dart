@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/weather/weather_details.dart';
 
 class WeeklyWeatherCard extends StatelessWidget {
@@ -11,6 +12,11 @@ class WeeklyWeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime =
+        DateTime.fromMillisecondsSinceEpoch(weatherInfo['dateTime'] * 1000);
+    String formattedDate = DateFormat('h:00:00').format(dateTime);
+
+    DateTime today = DateTime.now();
     return Stack(alignment: Alignment.topCenter, children: [
       Padding(
         padding: const EdgeInsets.only(top: 25),
@@ -60,13 +66,15 @@ class WeeklyWeatherCard extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: [
-                            const Text('6:00 AM'),
+                            Text('$formattedDate AM'),
                             Image.asset(
                               'images/sky.png',
                               height: 90,
                               width: 90,
                             ),
-                            const Text('24° C'),
+                            Text(
+                              '${weatherInfo['temp'].round()} °',
+                            ),
                           ],
                         ),
                       ),
@@ -81,13 +89,13 @@ class WeeklyWeatherCard extends StatelessWidget {
       Container(
         width: 300,
         height: 100,
-        child:  Card(
+        child: Card(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                   Column(
+                  Column(
                     children: [
                       const Icon(Icons.water_drop_outlined),
                       Text(weatherInfo['humidity'].toString()),
@@ -101,14 +109,14 @@ class WeeklyWeatherCard extends StatelessWidget {
                       const Text('Wind'),
                     ],
                   ),
-                   Column(
+                  Column(
                     children: [
                       const Icon(Icons.alarm),
                       Text(weatherInfo['pressure'].toString()),
                       const Text('Air Pressure'),
                     ],
                   ),
-                   Column(
+                  Column(
                     children: [
                       const Icon(Icons.remove_red_eye_outlined),
                       Text(weatherInfo['visibility'].toString()),
