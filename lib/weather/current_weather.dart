@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/Shared/Bloc/cubit.dart';
-import 'package:weather_app/Shared/Bloc/states.dart';
-import '../network/remote/weather_service.dart';
+import 'package:weather_app/Shared/Bloc/weather_cupit.dart';
+import 'package:weather_app/Shared/Bloc/weather_states.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
-  // final WeatherService _weatherService = WeatherService();
   final TextEditingController cityController = TextEditingController();
+  CurrentWeatherPage({super.key});
 
-  // String _city = 'Cairo';
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -26,24 +24,27 @@ class CurrentWeatherPage extends StatelessWidget {
                   children: [
                     TextField(
                       controller: cityController,
-                      decoration:
-                          const InputDecoration(labelText: 'Enter city to get weather'),
+                      decoration: const InputDecoration(
+                          labelText: 'Enter city to get weather'),
                     ),
                     const SizedBox(height: 16),
                     Center(
                       child: ElevatedButton(
-                        // onPressed: () {WeatherCubit.get(context).changeCity(cityController.text);},
-                        onPressed: () {WeatherCubit.get(context).changeCity(cityController.text); WeatherCubit.get(context).fetchWeather();},
+                        onPressed: () {
+                          WeatherCubit.get(context)
+                              .changeCity(cityController.text);
+                          WeatherCubit.get(context).fetchWeather();
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
-                          elevation: 5, // Elevation
+                          elevation: 5,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30),
                         ),
-                        child:  Text(
+                        child: Text(
                           'Get Weather  ${WeatherCubit.get(context).city}',
                           style: const TextStyle(color: Colors.white),
                         ),

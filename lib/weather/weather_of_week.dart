@@ -1,29 +1,23 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:weather_app/Shared/Bloc/cubit.dart';
-import 'package:weather_app/Shared/Bloc/states.dart';
+import 'package:weather_app/Shared/Bloc/weather_cupit.dart';
+import 'package:weather_app/Shared/Bloc/weather_states.dart';
 import 'package:weather_app/weather/weatherCard/weather_card.dart';
 import 'package:weather_app/weather/weatherCard/weekly_weather_card.dart';
-import '../network/remote/weather_service.dart';
 
 class WeatherOfWeek extends StatefulWidget {
+  const WeatherOfWeek({super.key});
   @override
   State<WeatherOfWeek> createState() => _WeatherOfWeekState();
 }
 
 class _WeatherOfWeekState extends State<WeatherOfWeek> {
-  // final WeatherService _weatherService = WeatherService();
   final TextEditingController cityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     int weatherCardIndex = 0;
-    DateTime today = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd h:00:00').format(today);
-
-
 
     return BlocProvider(
       create: (BuildContext context) =>
@@ -40,44 +34,45 @@ class _WeatherOfWeekState extends State<WeatherOfWeek> {
               body: Column(
                 children: [
                   CarouselSlider(
-                      options: CarouselOptions(
-                        height: 250,
-                        enlargeCenterPage: true,
-                        disableCenter: true,
-                        autoPlay: true,
-                        viewportFraction: 0.6,
-                        initialPage: weatherCardIndex,
-                        onPageChanged: (index, reason) {
-                          print('index $formattedDate ');
-                          setState(() {
-                            weatherCardIndex = index;
-                          });
-                        },
-                      ),
-                      items: WeatherCubit.get(context)
-                          .weatherOfWeekInfoList
-                          .map((item) => WeatherCard(
-                                weatherInfo: item,
-                              ))
-                          .toList()),
+                    options: CarouselOptions(
+                      height: 250,
+                      enlargeCenterPage: true,
+                      disableCenter: true,
+                      autoPlay: true,
+                      viewportFraction: 0.6,
+                      initialPage: weatherCardIndex,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          weatherCardIndex = index;
+                        });
+                      },
+                    ),
+                    items: WeatherCubit.get(context)
+                        .weatherOfWeekInfoList
+                        .map((item) => WeatherCard(
+                              weatherInfo: item,
+                            ))
+                        .toList(),
+                  ),
                   const SizedBox(
                     height: 100,
                   ),
                   CarouselSlider(
-                      options: CarouselOptions(
-                        height: 309,
-                        enlargeCenterPage: false,
-                        disableCenter: true,
-                        autoPlay: false,
-                        viewportFraction: 0.9,
-                        initialPage: weatherCardIndex,
-                      ),
-                      items: WeatherCubit.get(context)
-                          .weatherOfWeekInfoList
-                          .map((item) => WeeklyWeatherCard(
-                                weatherInfo: item,
-                              ))
-                          .toList())
+                    options: CarouselOptions(
+                      height: 309,
+                      enlargeCenterPage: false,
+                      disableCenter: true,
+                      autoPlay: true,
+                      viewportFraction: 0.9,
+                      initialPage: weatherCardIndex,
+                    ),
+                    items: WeatherCubit.get(context)
+                        .weatherOfWeekInfoList
+                        .map((item) => WeeklyWeatherCard(
+                              weatherInfo: item,
+                            ))
+                        .toList(),
+                  ),
                 ],
               ),
             );

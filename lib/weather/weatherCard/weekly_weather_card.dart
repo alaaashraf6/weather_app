@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/weather/weather_details.dart';
 
 class WeeklyWeatherCard extends StatelessWidget {
   const WeeklyWeatherCard({
@@ -16,7 +15,6 @@ class WeeklyWeatherCard extends StatelessWidget {
         DateTime.fromMillisecondsSinceEpoch(weatherInfo['dateTime'] * 1000);
     String formattedDate = DateFormat('h:00:00').format(dateTime);
 
-    DateTime today = DateTime.now();
     return Stack(alignment: Alignment.topCenter, children: [
       Padding(
         padding: const EdgeInsets.only(top: 25),
@@ -86,7 +84,7 @@ class WeeklyWeatherCard extends StatelessWidget {
           ),
         ),
       ),
-      Container(
+      SizedBox(
         width: 300,
         height: 100,
         child: Card(

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/Shared/Bloc/cubit.dart';
-import 'package:weather_app/Shared/Bloc/states.dart';
+import 'package:weather_app/Shared/Bloc/weather_cupit.dart';
+import 'package:weather_app/Shared/Bloc/weather_states.dart';
 
 class WeatherDetails extends StatelessWidget {
-  WeatherDetails({super.key, required this.weatherInfo});
-
+  const WeatherDetails({super.key, required this.weatherInfo});
   final dynamic weatherInfo;
 
   @override
   Widget build(BuildContext context) {
-
     void goBack(context) {
       Navigator.pop(
         context,
@@ -100,7 +98,7 @@ class WeatherDetails extends StatelessWidget {
                         children: [
                           const Text(
                             'Future Weathers',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -108,7 +106,7 @@ class WeatherDetails extends StatelessWidget {
                             width: 250,
                             child: ListView.separated(
                               itemCount:
-                                  items.length, // Use the items from the cubit
+                                  items.length, 
                               separatorBuilder: (context, index) =>
                                   const Divider(height: 1),
                               itemBuilder: (context, index) {
@@ -156,7 +154,7 @@ class WeatherDetails extends StatelessWidget {
                                         ),
                                       ],
                                     )
-                                  ], // Update based on your data structure
+                                  ], 
                                 );
                               },
                             ),

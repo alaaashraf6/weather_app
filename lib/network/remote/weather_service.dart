@@ -6,7 +6,11 @@ class WeatherService {
   final Dio _dio = Dio();
   final String city = '';
   final String baseUrl = 'https://api.openweathermap.org/data/2.5/forecast';
-  final Map<dynamic, dynamic> weatherData = {'temp': 0.0, 'description': ''  , 'date' :''};
+  final Map<dynamic, dynamic> weatherData = {
+    'temp': 0.0,
+    'description': '',
+    'date': ''
+  };
 
   Future<Map<String, dynamic>> getWeather(String city) async {
     final String url =
@@ -21,40 +25,24 @@ class WeatherService {
   }
 
   Future<List<dynamic>> fetchWeeklyWeather(String city) async {
-     int unixTimestamp = 1730073600;
-
-  DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
-    // String formattedDate = DateFormat('dd/MM/yyyy HH:mm').format(date);
     try {
-
       final response =
           await _dio.get('$baseUrl?q=$city&appid=$apiKey&units=metric');
-      // List<dynamic> weatherList = (response.data['list'])
-      //     .map((item ,index) => {
-      //           weatherData['temp'] = item['main']['temp'],
-      //           weatherData['description'] = item['weather'][0]['description'],
-      //         })
-      //     .toList();
-
-      List<dynamic> weatherList = (response.data['list'] )
-      .map((item) {
-        // print(item['dt_txt']);
+      List<dynamic> weatherList = (response.data['list']).map((item) {
         return {
           'temp': item['main']['temp'],
-          'description': item['weather'][0]['description'], 
-          'date': item['dt_txt'], 
-          'dateTime': item['dt'], 
-          'windSpeed': item['wind']['speed'], 
-          'visibility': item['visibility'], 
-          'pressure': item['main']['pressure'], 
-          'humidity': item['main']['humidity'], 
-
+          'description': item['weather'][0]['description'],
+          'date': item['dt_txt'],
+          'dateTime': item['dt'],
+          'windSpeed': item['wind']['speed'],
+          'visibility': item['visibility'],
+          'pressure': item['main']['pressure'],
+          'humidity': item['main']['humidity'],
         };
       }).toList();
 
       return weatherList;
     } catch (e) {
-
       throw Exception('Failed to load weather data: $e');
     }
   }
